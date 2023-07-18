@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
 import EditProduct from "../EditProduct/EditProduct";
 import ProductList from "../ProductList/ProductList";
-import ModalPop from "../AddProduct/ModalPop";
+// import ModalPop from "../AddProduct/ModalPop";
+import AddProduct from "../AddProduct/AddProduct";
+import { FaListAlt } from "react-icons/fa";
+import { FiGrid } from "react-icons/fi";
 
 export interface ProductInterface {
   id: string;
@@ -28,19 +31,22 @@ const Products = () => {
       <div className="app__wrapper">
         <div className="app__header">
           <h1 className="app__title">Product Page</h1>
-          <ModalPop />
+          {/* <ModalPop /> */}
         </div>
         <div className="app__inputs-box">
-          {editProduct?.id && (
+          {editProduct?.id ? (
             <EditProduct editProduct={editProduct} setEditProduct={setEditProduct} />
-          )}
+          ) : (
+            <AddProduct />
+          )
+        }
         </div>
 
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-8"
           onClick={toggleView}
         >
-          {isGridView ? 'List View' : 'Grid View'}
+          {isGridView ? <FaListAlt /> : <FiGrid />}
         </button>
         <ProductList
           isGridView={isGridView}
