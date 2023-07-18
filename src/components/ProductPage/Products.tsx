@@ -22,10 +22,18 @@ const Products = () => {
   console.log(editProduct);
 
   const [isGridView, setIsGridView] = useState(true);
-
+  const [searchTerm, setSearchTerm] = useState('');
   const toggleView = () => {
     setIsGridView(!isGridView);
   };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <main className="relative flex w-full app">
       <div className="app__wrapper">
@@ -39,9 +47,16 @@ const Products = () => {
           ) : (
             <AddProduct />
           )
-        }
+          }
         </div>
 
+        {/* <input
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="border rounded-l py-2 px-4 w-full my-5 text-cyan-950"
+        /> */}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-8"
           onClick={toggleView}
